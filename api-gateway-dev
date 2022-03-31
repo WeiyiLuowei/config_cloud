@@ -1,0 +1,34 @@
+server:
+  port: 9000
+
+#消息队列
+spring:
+  rabbitmq:
+    host: 192.168.218.131
+    port: 5672
+    username: guest
+    password: guest
+ 
+#暴露全部的监控信息
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+#自由路由映射
+#禁止所有通过网关的service服务直接访问,统一使用apigateway访问
+zuul:
+  routes:
+    order-service: /apigateway/order/**
+    product-service: /apigateway/product/**
+  ignored-services: /*-service/**
+  sensitive-headers:
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 10000
+    connection-request-timeout-millis: 10000
+
+ribbon:
+  ReadTimeout: 120000  #请求处理的超时时间
+  ConnectTimeout: 30000  #请求连接的超时时间
