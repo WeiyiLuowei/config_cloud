@@ -12,5 +12,5 @@ spring:
   application:
     name: product-service
  
-env: dev
+env: dev2022
 branch: master
